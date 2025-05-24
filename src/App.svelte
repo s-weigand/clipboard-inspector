@@ -37,7 +37,7 @@ const pastCallback = (event: ClipboardEvent) => {
 <style>
   input {
     width: 11.5rem;
-    padding: 0.3rem;
+    padding: 0.7rem;
     margin-bottom: 3rem;
     border-radius: 6px;
     border: 1px solid;

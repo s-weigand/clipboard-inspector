@@ -1,5 +1,6 @@
 <script lang="ts">
 import { type BundledLanguage, type BundledTheme, bundledLanguages, bundledThemes } from "shiki";
+import Svelecte from "svelecte";
 import type { ClipboardData } from "../types/ClipboardData";
 import ClipboardContent from "./ClipboardContent.svelte";
 import ClipboardFiles from "./ClipboardFiles.svelte";
@@ -27,22 +28,26 @@ function isValidFileList(files: FileList | null): files is FileList {
 {#if bufferTypes.length !== 0}
   <div class="wrapper">
     <div class="preferences">
-      <select
-        value={selectedTheme}
-        onchange={(event) => {
-          userPreferences.current.syntaxTheme = event.currentTarget
-            .value as BundledTheme;
-        }}
-      >
-        {#each Object.keys(bundledThemes) as theme}
-          <option>{theme}</option>
-        {/each}
-      </select>
-      <select bind:value={selectedLanguage}>
-        {#each Object.keys(bundledLanguages) as language}
-          <option>{language}</option>
-        {/each}
-      </select>
+      <Svelecte options={Object.keys(bundledThemes)}
+                value={selectedTheme}
+                onChange={
+                  (selection:{value:BundledTheme}) => {
+                    if(selection!==null){
+                      userPreferences.current.syntaxTheme = selection.value
+                    }
+                  }
+                }
+        />
+      <Svelecte options={Object.keys(bundledLanguages)}
+                value={selectedLanguage}
+                onChange={
+                  (selection:{value:BundledLanguage}) => {
+                    if(selection!==null){
+                      selectedLanguage = selection.value
+                    }
+                  }
+                }
+      />
     </div>
     <div class="container">
       <div class="sidebar">

@@ -7,6 +7,9 @@ export function findLanguage(file: File): BundledLanguage {
     console.log("Found Langue:", extension, "for file", file.name);
     return extension as BundledLanguage;
   }
+  if (["mjs"].includes(extension)) {
+    return "js";
+  }
   console.log("Falling back to json for file:", file.name, "with extension", extension);
   return "json";
 }
