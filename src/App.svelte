@@ -1,27 +1,26 @@
 <script lang="ts">
-  import PWABadge from "./lib/PWABadge.svelte";
-  import ClipboardDataTable from "./lib/ClipboardDataTable.svelte";
-  import type { ClipboardData } from "./types/ClipboardData";
-  let pastedData = $state<ClipboardData>({
-    buffers: {},
-    files: null,
-  });
-  const pastCallback = (event: ClipboardEvent) => {
-    event.preventDefault();
-    const clipboardBuffer: DataTransfer =
-      event.clipboardData || window.clipboardData;
-    Object.keys(pastedData.buffers).forEach((key) => {
-      delete pastedData.buffers[key];
-    });
-    pastedData.files = null;
-    for (const bufferType of clipboardBuffer.types) {
-      pastedData.buffers[bufferType] = clipboardBuffer.getData(bufferType);
-      console.log({ bufferType });
-      console.log({ data: clipboardBuffer.getData(bufferType) });
-    }
-    console.log({ files: clipboardBuffer.files });
-    pastedData.files = clipboardBuffer.files;
-  };
+import ClipboardDataTable from "./lib/ClipboardDataTable.svelte";
+import PWABadge from "./lib/PWABadge.svelte";
+import type { ClipboardData } from "./types/ClipboardData";
+let pastedData = $state<ClipboardData>({
+  buffers: {},
+  files: null,
+});
+const pastCallback = (event: ClipboardEvent) => {
+  event.preventDefault();
+  const clipboardBuffer: DataTransfer = event.clipboardData || window.clipboardData;
+  for (const bufferName of Object.keys(pastedData.buffers)) {
+    delete pastedData.buffers[bufferName];
+  }
+  pastedData.files = null;
+  for (const bufferType of clipboardBuffer.types) {
+    pastedData.buffers[bufferType] = clipboardBuffer.getData(bufferType);
+    console.log({ bufferType });
+    console.log({ data: clipboardBuffer.getData(bufferType) });
+  }
+  console.log({ files: clipboardBuffer.files });
+  pastedData.files = clipboardBuffer.files;
+};
 </script>
 
 <main>

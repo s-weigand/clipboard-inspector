@@ -1,32 +1,27 @@
 <script lang="ts">
-  import type { ClipboardData } from "../types/ClipboardData";
-  import ClipboardContent from "./ClipboardContent.svelte";
-  import ClipboardFiles from "./ClipboardFiles.svelte";
-  import { userPreferences } from "./userPreferences";
-  import {
-    bundledThemes,
-    type BundledTheme,
-    type BundledLanguage,
-    bundledLanguages,
-  } from "shiki";
-  let { buffers, files }: ClipboardData = $props();
-  let currentBufferType = $state<string>("");
-  let bufferTypes = $derived(Object.keys(buffers));
-  $effect(() => {
-    if (bufferTypes.includes(currentBufferType) === false) {
-      if (bufferTypes.length > 0) {
-        currentBufferType = bufferTypes[0];
-      } else {
-        currentBufferType = "";
-      }
+import { type BundledLanguage, type BundledTheme, bundledLanguages, bundledThemes } from "shiki";
+import type { ClipboardData } from "../types/ClipboardData";
+import ClipboardContent from "./ClipboardContent.svelte";
+import ClipboardFiles from "./ClipboardFiles.svelte";
+import { userPreferences } from "./userPreferences";
+let { buffers, files }: ClipboardData = $props();
+let currentBufferType = $state<string>("");
+let bufferTypes = $derived(Object.keys(buffers));
+$effect(() => {
+  if (bufferTypes.includes(currentBufferType) === false) {
+    if (bufferTypes.length > 0) {
+      currentBufferType = bufferTypes[0];
+    } else {
+      currentBufferType = "";
     }
-  });
-  let selectedTheme = $derived(userPreferences.current.syntaxTheme);
-  let selectedLanguage = $state<BundledLanguage>("json");
-
-  function isValidFileList(files: FileList | null): files is FileList {
-    return files !== null && files.length !== 0;
   }
+});
+let selectedTheme = $derived(userPreferences.current.syntaxTheme);
+let selectedLanguage = $state<BundledLanguage>("json");
+
+function isValidFileList(files: FileList | null): files is FileList {
+  return files !== null && files.length !== 0;
+}
 </script>
 
 {#if bufferTypes.length !== 0}

@@ -1,26 +1,23 @@
 <script lang="ts">
-  import { codeToHtml, type BundledTheme, type BundledLanguage } from "shiki";
-  let {
-    bufferType,
-    bufferContent,
-    selectedTheme,
-    selectedLanguage,
-  }: {
-    bufferType: string;
-    bufferContent: string;
-    selectedTheme: BundledTheme;
-    selectedLanguage: BundledLanguage;
-  } = $props();
-  const jsonLikeBufferType = [
-    "application/vnd.code.copymetadata",
-    "vscode-editor-data",
-  ];
-  function formatJsonString(jsonString: string) {
-    if (jsonString) {
-      return JSON.stringify(JSON.parse(jsonString), undefined, 2);
-    }
-    return jsonString;
+import { type BundledLanguage, type BundledTheme, codeToHtml } from "shiki";
+let {
+  bufferType,
+  bufferContent,
+  selectedTheme,
+  selectedLanguage,
+}: {
+  bufferType: string;
+  bufferContent: string;
+  selectedTheme: BundledTheme;
+  selectedLanguage: BundledLanguage;
+} = $props();
+const jsonLikeBufferType = ["application/vnd.code.copymetadata", "vscode-editor-data"];
+function formatJsonString(jsonString: string) {
+  if (jsonString) {
+    return JSON.stringify(JSON.parse(jsonString), undefined, 2);
   }
+  return jsonString;
+}
 </script>
 
 <div>

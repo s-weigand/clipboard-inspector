@@ -1,5 +1,5 @@
+import type { BundledTheme } from "shiki";
 import { persistedState } from "svelte-persisted-state";
-import { type BundledTheme } from "shiki";
 
 interface UserPreferences {
   theme: "light" | "dark";
@@ -22,5 +22,5 @@ export const userPreferences = persistedState<UserPreferences>(
     onWriteError: (error) => {
       console.error("Failed to save preferences:", error);
     },
-  }
+  },
 );

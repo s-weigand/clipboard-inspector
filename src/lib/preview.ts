@@ -1,9 +1,4 @@
-import {
-  type BundledLanguage,
-  bundledLanguages,
-  type BundledTheme,
-  codeToHtml,
-} from "shiki";
+import { type BundledLanguage, type BundledTheme, bundledLanguages, codeToHtml } from "shiki";
 
 export function findLanguage(file: File): BundledLanguage {
   const fineNameElements = file.name.split(".");
@@ -12,12 +7,7 @@ export function findLanguage(file: File): BundledLanguage {
     console.log("Found Langue:", extension, "for file", file.name);
     return extension as BundledLanguage;
   }
-  console.log(
-    "Falling back to json for file:",
-    file.name,
-    "with extension",
-    extension
-  );
+  console.log("Falling back to json for file:", file.name, "with extension", extension);
   return "json";
 }
 function fileMetaInformation(file: File & { lastModifiedDate?: Date }): string {
@@ -40,10 +30,7 @@ async function toBase64(file: File): Promise<string> {
   });
 }
 
-export async function metaData(
-  file: File,
-  theme: BundledTheme
-): Promise<string> {
+export async function metaData(file: File, theme: BundledTheme): Promise<string> {
   return await codeToHtml(fileMetaInformation(file), {
     lang: "json",
     theme: theme,
@@ -58,21 +45,18 @@ export async function mediaPreview(file: File): Promise<string> {
   if (file.type.startsWith("image/")) {
     const base64 = await toBase64(file);
     return `<img src="${base64}" alt="Rendered ${file.name}" >`;
-  } else if (file.type.startsWith("video/")) {
-    if (file.type == "video/mp4") {
+  }
+  if (file.type.startsWith("video/")) {
+    if (file.type === "video/mp4") {
       const base64 = await toBase64(file);
       return `<video controls alt="Rendered ${file.name}" ><source src="${base64}"></video>`;
     }
     return "<p>Rendering is only videos of type <code>video/mp4</code> are supported.</p>";
-  } else {
-    return `Media type ${file.type} is not supported.`;
   }
+  return `Media type ${file.type} is not supported.`;
 }
 
-export async function textPreview(
-  file: File,
-  theme: BundledTheme
-): Promise<string> {
+export async function textPreview(file: File, theme: BundledTheme): Promise<string> {
   const text = await file.text();
   return await codeToHtml(text, { lang: findLanguage(file), theme: theme });
 }
