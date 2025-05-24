@@ -63,3 +63,12 @@ export async function textPreview(file: File, theme: BundledTheme): Promise<stri
   const text = await file.text();
   return await codeToHtml(text, { lang: findLanguage(file), theme: theme });
 }
+
+export async function updateTheme(theme: BundledTheme): Promise<void> {
+  const renderedPre = await codeToHtml("", { lang: "json", theme: theme });
+  const tmpElement = document.createElement("div");
+  tmpElement.innerHTML = renderedPre;
+  const style = (tmpElement.firstChild as HTMLElement).style;
+  document.documentElement.style.setProperty("--bg-color", style.backgroundColor);
+  document.documentElement.style.setProperty("--font-color", style.color);
+}

@@ -41,5 +41,7 @@ const pastCallback = (event: ClipboardEvent) => {
     margin-bottom: 3rem;
     border-radius: 6px;
     border: 1px solid;
+    background-color: var(--bg-color);
+    color: var(--font-color);
   }
 </style>

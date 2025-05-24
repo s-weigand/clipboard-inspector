@@ -3,9 +3,12 @@
   line-height: 1.5;
   font-weight: 400;
 
+  --font-color: rgba(255, 255, 255, 0.87);
+  --bg-color: #242424;
+
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--font-color);
+  background-color: var(--bg-color);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -83,7 +86,7 @@ button:focus-visible {
 }
 .dark {
   --sv-min-height: 40px;
-  --sv-bg: #32363f;
+  --sv-bg: var(--bg-color);
   --sv-disabled-bg: #eee;
   --sv-border: 1px solid #626262;
   --sv-border-radius: 4px;
@@ -96,7 +99,7 @@ button:focus-visible {
   --sv-item-btn-color: #ccc;
   --sv-item-btn-color-hover: #ccc;
   --sv-item-btn-bg: #626262;
-  --sv-item-btn-bg-hover: #bc6063;
+  --sv-item-btn-bg-hover: rgba(165, 42, 42, 0.5);
   --sv-icon-color: #bbb;
   --sv-icon-color-hover: #ccc;
   --sv-icon-bg: transparent;
@@ -110,8 +113,8 @@ button:focus-visible {
   --sv-dropdown-width: auto;
   --sv-dropdown-shadow: 0 1px 3px #555;
   --sv-dropdown-height: 320px;
-  --sv-dropdown-active-bg: #553d3d;
-  --sv-dropdown-selected-bg: #754545;
+  --sv-dropdown-active-bg: rgba(165, 42, 42, 0.5);
+  --sv-dropdown-selected-bg: rgba(165, 42, 42, 0.3);
   --sv-create-kbd-border: 1px solid #626262;
   --sv-create-kbd-bg: #626262;
   --sv-create-disabled-bg: #fcbaba;

@@ -4,6 +4,7 @@ import Svelecte from "svelecte";
 import type { ClipboardData } from "../types/ClipboardData";
 import ClipboardContent from "./ClipboardContent.svelte";
 import ClipboardFiles from "./ClipboardFiles.svelte";
+import { updateTheme } from "./preview";
 import { userPreferences } from "./userPreferences";
 let { buffers, files }: ClipboardData = $props();
 let currentBufferType = $state<string>("");
@@ -19,6 +20,10 @@ $effect(() => {
 });
 let selectedTheme = $derived(userPreferences.current.syntaxTheme);
 let selectedLanguage = $state<BundledLanguage>("json");
+
+$effect(() => {
+  updateTheme(selectedTheme);
+});
 
 function isValidFileList(files: FileList | null): files is FileList {
   return files !== null && files.length !== 0;
@@ -104,16 +109,16 @@ function isValidFileList(files: FileList | null): files is FileList {
     flex-direction: row;
     text-align: left;
     border-radius: 0.5rem;
-    border: 1px solid white;
+    border: 1px solid var(--font-color);
   }
   .sidebar {
     display: flex;
     flex-direction: column;
-    border-right: 1px solid white;
+    border-right: 1px solid var(--font-color);
   }
   .sidebar pre.active {
-    background-color: brown;
-    color: aliceblue;
+    background-color: rgba(165, 42, 42,0.3);
+    color: var(--font-color);
     border-radius: 0.5rem 0 0 0.5rem;
   }
   .content {
