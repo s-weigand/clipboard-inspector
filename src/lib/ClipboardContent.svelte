@@ -12,6 +12,7 @@ let {
 } = $props();
 
 let selectedLanguage = $state<BundledLanguage>("json");
+let htmlView = $state<"source" | "render">("source");
 const jsonLikeBufferType = ["application/vnd.code.copymetadata", "vscode-editor-data"];
 function formatJsonString(jsonString: string) {
   if (jsonString) {
@@ -23,10 +24,23 @@ function formatJsonString(jsonString: string) {
 
 <div>
   {#if bufferType === "text/html"}
-    {@html bufferContent}
-    {#await codeToHtml( bufferContent || "", { lang: "html", theme: selectedTheme }, ) then highlighted}
-      {@html highlighted}
-    {/await}
+    <div class="top-bar">
+      <button type="button" onclick={()=>{htmlView="source"}}>
+        <pre class={htmlView==="source"?"active":""} >Source</pre>
+      </button>
+      <button type="button" onclick={()=>{htmlView="render"}}>
+        <pre class={htmlView==="render"?"active":""}>Render</pre>
+      </button>
+    </div>
+    {#if htmlView==="source"}
+      {#await codeToHtml( bufferContent || "", { lang: "html", theme: selectedTheme }, ) then highlighted}
+        {@html highlighted}
+      {/await}
+    {:else}
+      <pre class="shiki">
+        {@html bufferContent}
+      </pre>
+    {/if}
   {:else if jsonLikeBufferType.includes(bufferType)}
     {#await codeToHtml( formatJsonString(bufferContent || ""), { lang: "json", theme: selectedTheme }, ) then highlighted}
       {@html highlighted}
@@ -56,6 +70,30 @@ function formatJsonString(jsonString: string) {
   div {
     all: unset;
     text-align: left;
+  }
+  .top-bar {
+    padding-top: 0.2rem;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid var(--font-color);
+    margin-bottom: 0.5rem;
+  }
+  .top-bar  button{
+    all: unset;
+  }
+  .top-bar pre {
+    color: var(--font-color);
+    margin: 0;
+    line-height: 2.5;
+    padding-inline: 1rem;
+  }
+  .top-bar pre.active {
+    background-color: rgba(165, 42, 42,0.3);
+    color: var(--font-color);
+    border-radius: 0.5rem 0.5rem 0 0;
+    margin: 0;
+    line-height: 2.5;
+    outline: 1px solid var(--font-color);
   }
   div.language-select{
     padding: 1rem;

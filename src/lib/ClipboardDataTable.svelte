@@ -108,6 +108,7 @@ function isValidFileList(files: FileList | null): files is FileList {
     background-color: rgba(165, 42, 42,0.3);
     color: var(--font-color);
     border-radius: 0.5rem 0 0 0.5rem;
+    outline: 1px solid var(--font-color);
   }
   .content {
     max-width: 40rem;
