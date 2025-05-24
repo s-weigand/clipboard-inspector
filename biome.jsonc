@@ -1,0 +1,35 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "files": {
+    // Will be fixed in v2
+    // See: https://github.com/biomejs/biome/pull/4771
+    "ignore": ["tsconfig.*.json"]
+  },
+  "organizeImports": {
+    "enabled": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  },
+  "formatter": {
+    "indentStyle": "space", // default is `tab`
+    "lineWidth": 100 // default is `80`
+  },
+  // See: https://biomejs.dev/internals/language-support/#html-super-languages-support
+  "overrides": [
+    {
+      "include": ["*.svelte"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useConst": "off",
+            "useImportType": "off"
+          }
+        }
+      }
+    }
+  ]
+}
