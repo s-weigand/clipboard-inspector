@@ -3,7 +3,7 @@ import { type BundledTheme } from "shiki";
 import { mediaPreview, supportsMediaPreview, textPreview } from "./preview";
 let { file, selectedTheme }: { file: File; selectedTheme: BundledTheme } = $props();
 
-let renderPreview = $state(file.size < 1e6);
+let renderPreview = $state(file.size < 1e5);
 </script>
 
 <div>
