@@ -18,7 +18,9 @@ let renderPreview = $state(file.size < 1e5);
       {@html preview}
     {/await}
   {:else}
-    {#await textPreview(file, selectedTheme) then preview}
+    {#await textPreview(file, selectedTheme)}
+      Creating preview...
+    {:then preview}
       {@html preview}
     {/await}
   {/if}
