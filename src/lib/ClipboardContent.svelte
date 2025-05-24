@@ -1,16 +1,17 @@
 <script lang="ts">
-import { type BundledLanguage, type BundledTheme, codeToHtml } from "shiki";
+import { type BundledLanguage, type BundledTheme, bundledLanguages, codeToHtml } from "shiki";
+import Svelecte from "svelecte";
 let {
   bufferType,
   bufferContent,
   selectedTheme,
-  selectedLanguage,
 }: {
   bufferType: string;
   bufferContent: string;
   selectedTheme: BundledTheme;
-  selectedLanguage: BundledLanguage;
 } = $props();
+
+let selectedLanguage = $state<BundledLanguage>("json");
 const jsonLikeBufferType = ["application/vnd.code.copymetadata", "vscode-editor-data"];
 function formatJsonString(jsonString: string) {
   if (jsonString) {
@@ -31,9 +32,23 @@ function formatJsonString(jsonString: string) {
       {@html highlighted}
     {/await}
   {:else}
-    {#await codeToHtml( bufferContent || "", { lang: selectedLanguage, theme: selectedTheme }, ) then highlighted}
+    <div class="language-select">
+
+      <Svelecte options={Object.keys(bundledLanguages)}
+                value={selectedLanguage}
+                onChange={
+                  (selection:{value:BundledLanguage}) => {
+                    if(selection!==null){
+                      selectedLanguage = selection.value
+                    }
+                  }
+                }
+      />
+    </div>
+
+      {#await codeToHtml( bufferContent || "", { lang: selectedLanguage, theme: selectedTheme }, ) then highlighted}
       {@html highlighted}
-    {/await}
+      {/await}
   {/if}
 </div>
 
@@ -41,5 +56,12 @@ function formatJsonString(jsonString: string) {
   div {
     all: unset;
     text-align: left;
+  }
+  div.language-select{
+    padding: 1rem;
+    display: flex;
+    flex-grow: 0;
+    flex-direction: row;
+    justify-content: flex-end;
   }
 </style>

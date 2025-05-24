@@ -19,7 +19,6 @@ $effect(() => {
   }
 });
 let selectedTheme = $derived(userPreferences.current.syntaxTheme);
-let selectedLanguage = $state<BundledLanguage>("json");
 
 $effect(() => {
   updateTheme(selectedTheme);
@@ -43,16 +42,6 @@ function isValidFileList(files: FileList | null): files is FileList {
                   }
                 }
         />
-      <Svelecte options={Object.keys(bundledLanguages)}
-                value={selectedLanguage}
-                onChange={
-                  (selection:{value:BundledLanguage}) => {
-                    if(selection!==null){
-                      selectedLanguage = selection.value
-                    }
-                  }
-                }
-      />
     </div>
     <div class="container">
       <div class="sidebar">
@@ -77,7 +66,6 @@ function isValidFileList(files: FileList | null): files is FileList {
               bufferType={currentBufferType}
               bufferContent={buffers[currentBufferType]}
               {selectedTheme}
-              {selectedLanguage}
             />
           {/if}
         {/if}
@@ -122,10 +110,8 @@ function isValidFileList(files: FileList | null): files is FileList {
     border-radius: 0.5rem 0 0 0.5rem;
   }
   .content {
-    padding: 1rem;
     max-width: 40rem;
     min-width: 40rem;
     word-wrap: break-word;
-    overflow: auto;
   }
 </style>
