@@ -1,47 +1,45 @@
-# Svelte + TS + Vite
+<h1 style="text-align: center;">📋🕵</h1>
+<h1 style="text-align: center;">Clipboard Inspector</h1>
 
-This template should help get you started developing with Svelte and TypeScript in Vite.
+Simple website/[PWA](https://en.wikipedia.org/wiki/Progressive_web_app) to show you the
+the different representations of what is on your clipboard.
 
-## Recommended IDE Setup
+# What is this good for? 🤷‍♀️
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+**TLDR;**
 
-## Need an official Svelte framework?
+> It lets you go Sherlock Holmes on your clipboard. - @jsnel
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+Ever noticed that when you copy a code snippet from your editor or something from a website
+into an application that has rich text formatting (e.g. gmail or word) it also copies the
+formatting?
 
-## Technical considerations
+This is because your clipboard stores multiple [representations](https://www.w3.org/TR/clipboard-apis/#list-of-representations)
+of its content and the applications can decide which one to use when you paste it.
 
-**Why use this over SvelteKit?**
+Ok so that is a thing but what is this for?
+Mostly just my own curiosity which application adds which data to the clipboard
+(also gave me an excuse to try out [svelte](https://svelte.dev/) 🤓).
 
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
+# FAQ 🤔
 
-This template contains as little as possible to get started with Vite + TypeScript + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
+## Q: Is my data read by anyone else when I use this?
 
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
+A: **No**: Everything happens inside of you browser and never leaves your system.
+A server is only needed to serve the static files and if you install the PWA to check for updates.
 
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
+## Q: Does it only work if I'm online?
 
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
+A: **Depends**: If you use it directly from the gh-pages website yes.
+If you install it as PWA you can also use it offline.
 
-**Why include `.vscode/extensions.json`?**
+## Q: What actual problem does this help me with?
 
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
+A: My original use case was to:
 
-**Why enable `allowJs` in the TS template?**
+- Copy data from a system that doesn't natively support markdown (yeah looking at you Jira)
+- Convert it to markdown so I can comfortably edit it in my editor
+- Convert it back to a format that renders nicely like HTML
 
-While `allowJs: false` would indeed prevent the use of `.js` files in the project, it does not prevent the use of JavaScript syntax in `.svelte` files. In addition, it would force `checkJs: false`, bringing the worst of both worlds: not being able to guarantee the entire codebase is TypeScript, and also having worse typechecking for the existing JavaScript. In addition, there are valid use cases in which a mixed codebase may be relevant.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```ts
-// store.ts
-// An extremely simple external store
-import { writable } from "svelte/store";
-export default writable(0);
-```
+For such a use case this project can serve as a development tool to quickly inspect which
+representations are on you clipboard and what you could do with them.
