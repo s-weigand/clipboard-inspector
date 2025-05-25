@@ -47,12 +47,12 @@ export function supportsMediaPreview(file: File): boolean {
 export async function mediaPreview(file: File): Promise<string> {
   if (file.type.startsWith("image/")) {
     const base64 = await toBase64(file);
-    return `<img src="${base64}" alt="Rendered ${file.name}" >`;
+    return `<img style="max-width: 100%;" src="${base64}" alt="Rendered ${file.name}" >`;
   }
   if (file.type.startsWith("video/")) {
     if (file.type === "video/mp4") {
       const base64 = await toBase64(file);
-      return `<video controls alt="Rendered ${file.name}" ><source src="${base64}"></video>`;
+      return `<video style="max-width: 100%;" controls alt="Rendered ${file.name}" ><source src="${base64}"></video>`;
     }
     return "<p>Rendering is only videos of type <code>video/mp4</code> are supported.</p>";
   }

@@ -1,5 +1,6 @@
 <script lang="ts">
 import { type BundledTheme } from "shiki";
+import AwaitHtmlRender from "./AwaitHtmlRender.svelte";
 import { mediaPreview, supportsMediaPreview, textPreview } from "./preview";
 let { file, selectedTheme }: { file: File; selectedTheme: BundledTheme } = $props();
 
@@ -12,16 +13,20 @@ let renderPreview = $state(file.size < 1e5);
       >Render preview</button
     >
   {:else if supportsMediaPreview(file) === true}
-    {#await mediaPreview(file)}
-      Creating preview...
-    {:then preview}
-      {@html preview}
-    {/await}
+    <AwaitHtmlRender
+      htmlContentPromise={mediaPreview(file)}
+      waitText="Creating preview..."
+    />
   {:else}
-    {#await textPreview(file, selectedTheme)}
-      Creating preview...
-    {:then preview}
-      {@html preview}
-    {/await}
+    <AwaitHtmlRender
+      htmlContentPromise={textPreview(file, selectedTheme)}
+      waitText="Highlighting file contents..."
+    />
   {/if}
 </div>
+
+<style>
+  div{
+    padding: 0.5rem;
+  }
+</style>

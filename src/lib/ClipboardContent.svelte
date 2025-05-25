@@ -1,6 +1,7 @@
 <script lang="ts">
 import { type BundledLanguage, type BundledTheme, bundledLanguages, codeToHtml } from "shiki";
 import Svelecte from "svelecte";
+import AwaitHtmlRender from "./AwaitHtmlRender.svelte";
 let {
   bufferType,
   bufferContent,
@@ -33,21 +34,22 @@ function formatJsonString(jsonString: string) {
       </button>
     </div>
     {#if htmlView==="source"}
-      {#await codeToHtml( bufferContent || "", { lang: "html", theme: selectedTheme }, ) then highlighted}
-        {@html highlighted}
-      {/await}
+      <AwaitHtmlRender
+        htmlContentPromise={codeToHtml( bufferContent || "", { lang: "html", theme: selectedTheme }, )}
+      />
     {:else}
       <pre class="shiki">
         {@html bufferContent}
       </pre>
     {/if}
   {:else if jsonLikeBufferType.includes(bufferType)}
-    {#await codeToHtml( formatJsonString(bufferContent || ""), { lang: "json", theme: selectedTheme }, ) then highlighted}
-      {@html highlighted}
-    {/await}
+      {@const text = formatJsonString(bufferContent || "")}
+    <AwaitHtmlRender
+      htmlContentPromise={codeToHtml(text, { lang: "json", theme: selectedTheme })}
+    />
+
   {:else}
     <div class="language-select">
-
       <Svelecte options={Object.keys(bundledLanguages)}
                 value={selectedLanguage}
                 onChange={
@@ -59,10 +61,9 @@ function formatJsonString(jsonString: string) {
                 }
       />
     </div>
-
-      {#await codeToHtml( bufferContent || "", { lang: selectedLanguage, theme: selectedTheme }, ) then highlighted}
-      {@html highlighted}
-      {/await}
+    <AwaitHtmlRender
+      htmlContentPromise={codeToHtml( bufferContent || "", { lang: selectedLanguage, theme: selectedTheme }, )}
+    />
   {/if}
 </div>
 

@@ -1,5 +1,6 @@
 <script lang="ts">
 import { type BundledTheme } from "shiki";
+import AwaitHtmlRender from "./AwaitHtmlRender.svelte";
 import FilePreview from "./FilePreview.svelte";
 import { metaData } from "./preview";
 let { files, selectedTheme }: { files: FileList; selectedTheme: BundledTheme } = $props();
@@ -9,10 +10,17 @@ let { files, selectedTheme }: { files: FileList; selectedTheme: BundledTheme } =
   {#each files as file (file.name)}
     <details>
       <summary>{file.name}</summary>
-      {#await metaData(file, selectedTheme) then meta}
-        {@html meta}
-      {/await}
+      <AwaitHtmlRender
+        htmlContentPromise={metaData(file, selectedTheme)}
+        waitText="Highlighting metadata..."
+      />
       <FilePreview {file} {selectedTheme} />
     </details>
   {/each}
 </div>
+
+<style>
+  div {
+    padding: 0.5rem;
+  }
+</style>
