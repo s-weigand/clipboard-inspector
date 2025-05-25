@@ -54,7 +54,7 @@ export async function mediaPreview(file: File): Promise<string> {
       const base64 = await toBase64(file);
       return `<video style="max-width: 100%;" controls alt="Rendered ${file.name}" ><source src="${base64}"></video>`;
     }
-    return "<p>Rendering is only videos of type <code>video/mp4</code> are supported.</p>";
+    return "<p>Rendering is only supported for videos of type <code>video/mp4</code>.</p>";
   }
   return `Media type ${file.type} is not supported.`;
 }
