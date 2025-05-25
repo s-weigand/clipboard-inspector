@@ -6,8 +6,10 @@ let pastedData = $state<ClipboardData>({
   buffers: {},
   files: null,
 });
+let userTyped = $state(false);
 const pastCallback = (event: ClipboardEvent) => {
   event.preventDefault();
+  userTyped = false;
   const clipboardBuffer: DataTransfer = event.clipboardData || window.clipboardData;
   for (const bufferName of Object.keys(pastedData.buffers)) {
     delete pastedData.buffers[bufferName];
@@ -28,9 +30,16 @@ const pastCallback = (event: ClipboardEvent) => {
     type="text"
     onpaste={pastCallback}
     placeholder="Paste to inspect your clipboard"
+    onkeypress={(event)=>{
+      event.preventDefault()
+      userTyped=true}}
   />
-  <ClipboardDataTable {...pastedData} />
-</main>
+  {#if userTyped===true}
+    <p class="user-error">You should PASTE not TYPE! 🤓</p>
+  {:else}
+    <ClipboardDataTable {...pastedData} />
+  {/if}
+  </main>
 
 <PWABadge />
 
@@ -43,5 +52,8 @@ const pastCallback = (event: ClipboardEvent) => {
     border: 1px solid;
     background-color: var(--bg-color);
     color: var(--font-color);
+  }
+  .user-error{
+    color: red;
   }
 </style>
