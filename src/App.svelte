@@ -36,9 +36,8 @@ const pastCallback = (event: ClipboardEvent) => {
   />
   {#if userTyped===true}
     <p class="user-error">You should PASTE not TYPE! 🤓</p>
-  {:else}
-    <ClipboardDataTable {...pastedData} />
   {/if}
+    <ClipboardDataTable {...pastedData} />
   </main>
 
 <PWABadge />
