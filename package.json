@@ -12,13 +12,13 @@
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^5.0.3",
     "@tsconfig/svelte": "^5.0.4",
-    "@vite-pwa/assets-generator": "^0.2.6",
+    "@vite-pwa/assets-generator": "^1.0.0",
     "shiki": "^3.4.2",
     "svelte": "^5.33.2",
     "svelte-check": "^4.2.1",
     "typescript": "~5.8.3",
     "vite": "^6.0.11",
-    "vite-plugin-pwa": "^0.21.1",
+    "vite-plugin-pwa": "^1.0.0",
     "workbox-window": "^7.3.0"
   },
   "overrides": {
