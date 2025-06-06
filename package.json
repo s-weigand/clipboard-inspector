@@ -10,11 +10,11 @@
     "check": "svelte-check --tsconfig ./tsconfig.app.json && tsc -p tsconfig.node.json"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "@sveltejs/vite-plugin-svelte": "^5.1.0",
     "@tsconfig/svelte": "^5.0.4",
     "@vite-pwa/assets-generator": "^1.0.0",
-    "shiki": "^3.4.2",
-    "svelte": "^5.33.2",
+    "shiki": "^3.6.0",
+    "svelte": "^5.33.14",
     "svelte-check": "^4.2.1",
     "typescript": "~5.8.3",
     "vite": "^6.0.11",
@@ -27,6 +27,6 @@
   },
   "dependencies": {
     "svelecte": "^5.2.0",
-    "svelte-persisted-state": "^1.0.0"
+    "svelte-persisted-state": "^1.1.0"
   }
 }
