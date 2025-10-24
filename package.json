@@ -14,10 +14,10 @@
     "@tsconfig/svelte": "^5.0.5",
     "@vite-pwa/assets-generator": "^1.0.2",
     "shiki": "^3.13.0",
-    "svelte": "^5.40.2",
+    "svelte": "^5.41.4",
     "svelte-check": "^4.3.3",
     "typescript": "~5.9.3",
-    "vite": "^7.1.11",
+    "vite": "^7.1.12",
     "vite-plugin-pwa": "^1.1.0",
     "workbox-window": "^7.3.0"
   },
