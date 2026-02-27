@@ -14,7 +14,7 @@
     "@tsconfig/svelte": "^5.0.7",
     "@vite-pwa/assets-generator": "^1.0.2",
     "shiki": "^3.22.0",
-    "svelte": "^5.49.2",
+    "svelte": "^5.53.5",
     "svelte-check": "^4.3.6",
     "typescript": "~5.9.3",
     "vite": "^7.3.1",
