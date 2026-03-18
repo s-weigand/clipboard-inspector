@@ -23,7 +23,11 @@
   },
   "overrides": {
     "sharp": "0.32.6",
-    "sharp-ico": "0.1.5"
+    "sharp-ico": "0.1.5",
+    "vite-plugin-pwa": {
+      "vite": "$vite"
+    },
+    "serialize-javascript": ">=7.0.3"
   },
   "dependencies": {
     "svelecte": "^5.3.0",
