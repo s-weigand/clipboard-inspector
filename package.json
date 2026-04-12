@@ -17,7 +17,7 @@
     "svelte": "^5.55.0",
     "svelte-check": "^4.4.5",
     "typescript": "~6.0.2",
-    "vite": "^8.0.3",
+    "vite": "^8.0.5",
     "vite-plugin-pwa": "^1.2.0",
     "workbox-window": "^7.4.0"
   },
